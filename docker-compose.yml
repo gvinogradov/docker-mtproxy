@@ -6,6 +6,17 @@ services:
     container_name: mtproto-proxy
     restart: always
     ports:
-      - "443:443"
+      - "10.0.5.2:443:443"
+    networks:
+      tp_net:
+        ipv4_address: 10.0.5.2
     volumes:
-       - "./proxy-config:/data"
+      - "./proxy-config:/data"
+
+networks:
+  tp_net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.5.0/30
+         gateway: 10.0.5.1
